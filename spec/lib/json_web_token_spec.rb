@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'json_web_token'
 
 RSpec.describe JsonWebToken do
   let(:secret_key) { Rails.application.credentials.config[:secret_key_base] }
