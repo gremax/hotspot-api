@@ -32,6 +32,7 @@ module Hotspot
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.generators do |generate|
+      generate.orm :active_record, primary_key_type: :uuid
       generate.fixture_replacement :factory_bot, dir: 'spec/factories'
       generate.test_framework :rspec
     end
