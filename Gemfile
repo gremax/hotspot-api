@@ -5,6 +5,7 @@ ruby '2.5.0'
 
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'jsonapi-utils', '~> 0.7.0'
 gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
@@ -24,6 +25,7 @@ end
 group :test do
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'jsonapi-resources-matchers'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end
