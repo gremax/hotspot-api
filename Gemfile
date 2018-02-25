@@ -8,6 +8,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jsonapi-utils', '~> 0.7.0'
 gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'pundit', github: 'varvet/pundit'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0.rc1'
 gem 'warden'
