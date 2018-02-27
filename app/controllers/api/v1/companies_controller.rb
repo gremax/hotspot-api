@@ -1,47 +1,42 @@
 module Api
   module V1
     class CompaniesController < BaseController
-      before_action :set_company, only: %i[show update destroy]
-
       def index
-        @companies = Company.all
-
-        jsonapi_render json: @companies
+        jsonapi_render json: policy_scope(Company).all
       end
 
       def show
-        jsonapi_render json: @company
+        company = authorize Company.find(params[:id])
+        jsonapi_render json: company
       end
 
       def create
-        @company = Company.new(company_params)
+        company = authorize Company.new(resource_params.merge(owner: current_user))
 
-        if @company.save
-          jsonapi_render json: @company, status: :created, location: @company
+        if company.save
+          jsonapi_render json: company, status: :created
         else
-          jsonapi_render_errors json: @company, status: :unprocessable_entity
+          jsonapi_render_errors json: company, status: :unprocessable_entity
         end
       end
 
       def update
-        if @company.update(company_params)
+        company = authorize Company.find(params[:id])
+        if company.update(resource_params)
           head :no_content
         else
-          jsonapi_render_errors json: @company, status: :unprocessable_entity
+          jsonapi_render_errors json: company, status: :unprocessable_entity
         end
       end
 
       def destroy
-        @company.destroy
+        company = authorize Company.find(params[:id])
+        company.destroy
 
         head :no_content
       end
 
       private
-
-      def set_company
-        @company = Company.find(params[:id])
-      end
 
       def company_params
         params.require(:company).permit(:name)
