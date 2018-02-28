@@ -11,21 +11,25 @@ module Api
       end
 
       def create
-        company = authorize Company.new(resource_params.merge(owner: current_user))
+        company = authorize Company.new(company_params)
+        form = CompanyForm.new(company)
 
-        if company.save
+        if form.valid? && company.save
           jsonapi_render json: company, status: :created
         else
-          jsonapi_render_errors json: company, status: :unprocessable_entity
+          jsonapi_render_errors ::Exceptions::FormErrors.new(form), status: :unprocessable_entity
         end
       end
 
       def update
         company = authorize Company.find(params[:id])
-        if company.update(resource_params)
-          head :no_content
+        company.assign_attributes(resource_params)
+        form = CompanyForm.new(company)
+
+        if form.valid? && company.update(resource_params)
+          jsonapi_render json: company
         else
-          jsonapi_render_errors json: company, status: :unprocessable_entity
+          jsonapi_render_errors ::Exceptions::FormErrors.new(form), status: :unprocessable_entity
         end
       end
 
@@ -39,7 +43,7 @@ module Api
       private
 
       def company_params
-        params.require(:company).permit(:name)
+        resource_params.merge(owner: current_user)
       end
     end
   end
