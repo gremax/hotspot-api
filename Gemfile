@@ -5,12 +5,16 @@ ruby '2.5.0'
 
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'dry-validation'
 gem 'jsonapi-utils', '~> 0.7.0'
 gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'pundit', github: 'varvet/pundit'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.0.rc1'
+gem 'pundit', github: 'varvet/pundit'
+gem 'rack-cors'
+gem 'rails', github: 'rails/rails', branch: '5-2-stable'
+gem 'reform', '>= 2.2.0'
+gem 'reform-rails'
 gem 'warden'
 
 group :development, :test do

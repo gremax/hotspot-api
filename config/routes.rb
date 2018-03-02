@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         resources :sessions, only: %i[create]
       end
       jsonapi_resources :companies, only: %i[index show create update destroy]
+      jsonapi_resources :admins, only: %i[index show create update destroy]
     end
   end
 end
