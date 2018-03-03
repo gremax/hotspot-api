@@ -87,6 +87,7 @@ GEM
     byebug (10.0.0)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
+    database_cleaner (1.6.2)
     declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
@@ -246,6 +247,7 @@ DEPENDENCIES
   bcrypt
   bootsnap (>= 1.1.0)
   byebug
+  database_cleaner
   dry-validation
   factory_bot_rails
   faker
