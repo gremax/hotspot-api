@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.0'
 
+gem 'apartment'
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dry-validation'
@@ -18,7 +21,7 @@ gem 'reform-rails'
 gem 'warden'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -35,4 +38,4 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
