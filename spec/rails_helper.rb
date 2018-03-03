@@ -19,4 +19,22 @@ RSpec.configure do |config|
   config.after(:each) do
     Warden.test_reset!
   end
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.strategy = :transaction
+    Apartment::Tenant.drop('hotspot') rescue nil
+    Account.create!(name: 'Hotspot', subdomain: 'hotspot')
+    CreateTenant.new(Account.first).call
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+    Apartment::Tenant.switch! 'hotspot'
+  end
+
+  config.after(:each) do
+    Apartment::Tenant.reset
+    DatabaseCleaner.clean
+  end
 end

@@ -4,8 +4,18 @@ RSpec.describe 'Admins', type: :request do
   let!(:admin) { create(:admin) }
   let!(:jwt_token) { TokenIssuer.new(admin.email, admin.password).call }
 
-  let(:valid_headers) { { 'HTTP_AUTHORIZATION' => jwt_token } }
-  let(:invalid_headers) { { 'HTTP_AUTHORIZATION' => 'invalid-jwt' } }
+  let(:valid_headers) do
+    {
+      'HTTP_REFERER' => 'http://hotspot.example.com',
+      'HTTP_AUTHORIZATION' => jwt_token
+    }
+  end
+  let(:invalid_headers) do
+    {
+      'HTTP_REFERER' => 'http://hotspot.example.com',
+      'HTTP_AUTHORIZATION' => 'invalid-jwt'
+    }
+  end
 
   let(:parsed_response) { JSON.parse(response.body) }
 
