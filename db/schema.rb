@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2018_03_02_213606) do
   create_table "admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.string "type", null: false
     t.boolean "active", default: true, null: false
     t.string "first_name", null: false
     t.string "last_name", null: false

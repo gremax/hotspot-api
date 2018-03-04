@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :company do
-    owner { create(:admin) }
+    owner { create(:company_admin) }
     active true
     name { Faker::Company.name }
   end

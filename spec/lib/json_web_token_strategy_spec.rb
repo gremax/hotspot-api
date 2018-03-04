@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe JsonWebTokenStrategy, type: :model do
-  let!(:admin) { create(:admin) }
+  let!(:admin) { create(:account_admin) }
   let!(:env) { { 'HTTP_AUTHORIZATION' => 'jwt-token' } }
 
   let(:subject) { described_class.new(nil) }
