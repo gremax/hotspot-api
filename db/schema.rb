@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_02_213606) do
+ActiveRecord::Schema.define(version: 2018_03_04_145346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -36,12 +36,30 @@ ActiveRecord::Schema.define(version: 2018_03_02_213606) do
     t.index ["email"], name: "index_admins_on_email", unique: true
   end
 
+  create_table "admins_roles", id: false, force: :cascade do |t|
+    t.uuid "admin_id"
+    t.bigint "role_id"
+    t.index ["admin_id", "role_id"], name: "index_admins_roles_on_admin_id_and_role_id"
+    t.index ["admin_id"], name: "index_admins_roles_on_admin_id"
+    t.index ["role_id"], name: "index_admins_roles_on_role_id"
+  end
+
   create_table "companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "owner_id", null: false
     t.boolean "active", default: true, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.uuid "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
   add_foreign_key "companies", "admins", column: "owner_id"

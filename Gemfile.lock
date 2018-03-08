@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 7289e477f46c1b2559d028814ba33edd725d83fe
+  revision: e717b5423031a641146c56fdd9630dad502e01e3
   branch: 5-2-stable
   specs:
     actioncable (5.2.0.rc1)
@@ -134,10 +134,10 @@ GEM
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
-    ffi (1.9.21)
+    ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    i18n (0.9.5)
+    i18n (1.0.0)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
     jsonapi-resources (0.9.0)
@@ -165,7 +165,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    msgpack (1.2.2)
+    msgpack (1.2.4)
     nio4r (2.2.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -183,7 +183,7 @@ GEM
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rake (12.3.0)
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     reform (2.2.4)
@@ -196,6 +196,7 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
+    rolify (5.2.0)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -262,6 +263,7 @@ DEPENDENCIES
   rails!
   reform (>= 2.2.0)
   reform-rails
+  rolify
   rspec-rails
   shoulda-matchers
   spring

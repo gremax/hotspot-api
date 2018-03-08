@@ -87,7 +87,7 @@ RSpec.describe 'Companies', type: :request do
            headers: valid_headers
 
       expect(response).to have_http_status(201)
-      expect(parsed_response['data']['attributes']).to be_eql({'name'=>'Planet Express'})
+      expect(parsed_response['data']['attributes']['name']).to be_eql('Planet Express')
     end
 
     it 'does not create a new company with invalid attributes' do

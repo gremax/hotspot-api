@@ -18,6 +18,7 @@ gem 'rack-cors'
 gem 'rails', github: 'rails/rails', branch: '5-2-stable'
 gem 'reform', '>= 2.2.0'
 gem 'reform-rails'
+gem 'rolify'
 gem 'warden'
 
 group :development, :test do
