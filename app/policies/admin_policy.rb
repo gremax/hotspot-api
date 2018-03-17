@@ -1,29 +1,35 @@
+# frozen_string_literal: true
+
 class AdminPolicy < ApplicationPolicy
   def show?
-    owner?
+    owner? || account_admin?
   end
 
   def create?
-    owner?
+    account_admin?
   end
 
   def update?
-    owner?
+    owner? || account_admin?
   end
 
   def destroy?
-    owner?
+    account_admin?
   end
 
   class Scope < Scope
     def resolve
-      scope
+      if account_admin?
+        scope
+      else
+        scope.joins(:companies).where(companies: { owner: user })
+      end
     end
   end
 
   private
 
   def owner?
-    record.id == user
+    record.id == user.id
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json_web_token'
 
 class TokenIssuer
@@ -13,8 +15,8 @@ class TokenIssuer
   private
 
   def user
-    user = Admin.find_by_email(@email)
-    return user if user && user.authenticate(@password)
+    user = Admin.find_by(email: @email)
+    return user if user&.authenticate(@password)
     nil
   end
 end
