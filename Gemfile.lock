@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: e717b5423031a641146c56fdd9630dad502e01e3
+  revision: 9d7655a90f36fa4707323b04aad975c6b52d29e5
   branch: 5-2-stable
   specs:
     actioncable (5.2.0.rc1)
@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: https://github.com/varvet/pundit.git
-  revision: 1036bd7cfbedc6579a09faf36e3c0b48dc34d908
+  revision: 001d3fc16d8fc7e2e8500c668792d1a2b8ee8d44
   specs:
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -81,7 +81,7 @@ GEM
       rack (>= 1.3.6)
     arel (9.0.0)
     bcrypt (3.1.11)
-    bootsnap (1.1.8)
+    bootsnap (1.2.0)
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.0)
@@ -104,7 +104,7 @@ GEM
     dry-container (0.6.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
-    dry-core (0.4.4)
+    dry-core (0.4.5)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.0)
     dry-logic (0.4.2)
@@ -126,7 +126,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.4, >= 0.4.0)
       dry-types (~> 0.12.0)
-    erubi (1.7.0)
+    erubi (1.7.1)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.8.2)
@@ -172,7 +172,7 @@ GEM
     parallel (1.12.1)
     pg (1.0.0)
     public_suffix (3.0.2)
-    puma (3.11.2)
+    puma (3.11.3)
     rack (2.0.4)
     rack-cors (1.0.2)
     rack-test (0.8.3)
