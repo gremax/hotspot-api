@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json_web_token_strategy'
 
 Warden::Strategies.add(:json_web_token, JsonWebTokenStrategy)

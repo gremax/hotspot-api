@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Api::V1::PlaceResource, type: :resource do
   let(:place) { create(:place) }
 

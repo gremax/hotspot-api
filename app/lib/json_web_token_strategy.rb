@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JsonWebTokenStrategy < ::Warden::Strategies::Base
   def authenticate!
     if _user
@@ -22,7 +24,7 @@ class JsonWebTokenStrategy < ::Warden::Strategies::Base
   end
 
   def decoded_jwt
-    @decoded_auth_token ||= JsonWebToken.decode(jwt_from_header)
+    @decoded_jwt ||= JsonWebToken.decode(jwt_from_header)
   end
 
   def jwt_from_header

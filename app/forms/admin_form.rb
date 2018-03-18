@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminForm < Reform::Form
   EMAIL_REGEX = /@/
 

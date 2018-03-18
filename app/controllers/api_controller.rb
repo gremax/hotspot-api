@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :jsonapi_render_not_found
   rescue_from ActionController::ParameterMissing, with: :missing_param_error

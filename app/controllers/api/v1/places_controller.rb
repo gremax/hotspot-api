@@ -23,11 +23,9 @@ module Api
         end
       end
 
-      def update
-      end
+      def update; end
 
-      def destroy
-      end
+      def destroy; end
     end
   end
 end
