@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'spec/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.5
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false

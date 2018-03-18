@@ -1,0 +1,14 @@
+PreCommit:
+  RuboCop:
+    enabled: true
+    on_warn: fail
+
+  TrailingWhitespace:
+    enabled: true
+
+PostCheckout:
+  ALL:
+    quiet: true
+
+  IndexTags:
+    enabled: true
