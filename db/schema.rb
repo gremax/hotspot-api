@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_04_145346) do
+ActiveRecord::Schema.define(version: 2018_03_10_130509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 2018_03_04_145346) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "places", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "company_id"
+    t.string "name", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_places_on_company_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -62,5 +71,19 @@ ActiveRecord::Schema.define(version: 2018_03_04_145346) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "routers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "place_id"
+    t.string "name", null: false
+    t.string "username", null: false
+    t.string "password", null: false
+    t.string "status"
+    t.datetime "last_pinged_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_routers_on_place_id"
+  end
+
   add_foreign_key "companies", "admins", column: "owner_id"
+  add_foreign_key "places", "companies"
+  add_foreign_key "routers", "places"
 end

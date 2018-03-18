@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationPolicy
   attr_reader :user, :record
 
@@ -49,5 +51,25 @@ class ApplicationPolicy
     def resolve
       scope
     end
+
+    private
+
+    def account_admin?
+      user.has_role?(:account_admin)
+    end
+  end
+
+  private
+
+  def account_admin?
+    user.has_role?(:account_admin)
+  end
+
+  def company_admin?
+    user.has_role?(:company_admin, record)
+  end
+
+  def place_admin?
+    user.has_role?(:place_admin, record)
   end
 end

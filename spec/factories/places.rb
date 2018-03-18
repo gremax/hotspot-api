@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :place do
+    company { create(:company) }
+    name { Faker::Company.name }
+    active true
+  end
+end

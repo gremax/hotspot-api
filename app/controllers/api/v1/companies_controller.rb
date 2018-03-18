@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class CompaniesController < BaseController
@@ -11,7 +13,7 @@ module Api
       end
 
       def create
-        company = authorize Company.new(company_params)
+        company = authorize Company.new(resource_params)
         form = CompanyForm.new(company)
 
         if form.valid? && company.save
@@ -38,12 +40,6 @@ module Api
         company.destroy
 
         head :no_content
-      end
-
-      private
-
-      def company_params
-        resource_params.merge(owner: current_user)
       end
     end
   end

@@ -2,8 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admins', type: :request do
+RSpec.describe 'Places', type: :request do
   let!(:admin) { create(:admin) }
+  let!(:company) { create(:company, owner: admin) }
+  let!(:place) { create(:place, company: company) }
   let!(:jwt_token) { TokenIssuer.new(admin.email, admin.password).call }
 
   let(:valid_headers) do
@@ -23,12 +25,10 @@ RSpec.describe 'Admins', type: :request do
   let(:valid_attributes) do
     {
       data: {
-        type: :admins,
+        type: :places,
         attributes: {
-          email: 'bender@planet.express',
-          firstName: 'Bender',
-          lastName: 'Rodriguez',
-          password: 'bendergetsbetter'
+          name: 'New New York',
+          companyId: company.id
         }
       }
     }
@@ -37,12 +37,10 @@ RSpec.describe 'Admins', type: :request do
   let(:invalid_attributes) do
     {
       data: {
-        type: :admins,
+        type: :places,
         attributes: {
-          email: '',
-          firstName: '',
-          lastName: '',
-          password: ''
+          name: '',
+          companyId: ''
         }
       }
     }
@@ -50,57 +48,57 @@ RSpec.describe 'Admins', type: :request do
 
   let(:parsed_response) { JSON.parse(response.body) }
 
-  describe 'GET /admins' do
-    it 'lists all the admins' do
-      get api_v1_admins_path, headers: valid_headers
+  describe 'GET /places' do
+    it 'lists all the places' do
+      get api_v1_places_path, headers: valid_headers
 
       expect(response).to have_http_status(200)
     end
 
-    it 'does not list all the admins with an invalid jwt' do
-      get api_v1_admins_path, headers: invalid_headers
+    it 'does not list all the places with an invalid jwt' do
+      get api_v1_places_path, headers: invalid_headers
 
       expect(response).to have_http_status(401)
       expect(parsed_response).to be_eql('error' => 'Unauthorized Request')
     end
   end
 
-  describe 'GET /admins/:id' do
-    it 'gets a single admin' do
-      get api_v1_admin_path(admin), headers: valid_headers
+  describe 'GET /places/:id' do
+    it 'gets a single place' do
+      get api_v1_place_path(place), headers: valid_headers
 
       expect(response).to have_http_status(200)
     end
 
-    it 'does not get a single admin with an invalid jwt' do
-      get api_v1_admin_path(admin), headers: invalid_headers
+    it 'does not get a single place with an invalid jwt' do
+      get api_v1_place_path(place), headers: invalid_headers
 
       expect(response).to have_http_status(401)
       expect(parsed_response).to be_eql('error' => 'Unauthorized Request')
     end
 
-    it 'does not get a single admin with not existing id' do
-      get api_v1_admin_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), headers: valid_headers
+    it 'does not get a single place with not existing id' do
+      get api_v1_place_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), headers: valid_headers
 
       expect(response).to have_http_status(404)
       expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
     end
   end
 
-  describe 'POST /admins' do
+  describe 'POST /places' do
     before { admin.add_role(:account_admin) }
 
-    it 'creates a new admin' do
-      post api_v1_admins_path,
+    it 'creates a new place' do
+      post api_v1_places_path,
            params: valid_attributes,
            headers: valid_headers
 
       expect(response).to have_http_status(201)
-      expect(parsed_response['data']['attributes']['email']).to be_eql('bender@planet.express')
+      expect(parsed_response['data']['attributes']['name']).to be_eql('New New York')
     end
 
-    it 'does not create a new admin with invalid attributes' do
-      post api_v1_admins_path,
+    it 'does not create a new place with invalid attributes' do
+      post api_v1_places_path,
            params: invalid_attributes,
            headers: valid_headers
 
@@ -108,8 +106,8 @@ RSpec.describe 'Admins', type: :request do
       expect(parsed_response['errors'].first['title']).to be_eql('must be filled')
     end
 
-    it 'does not create a new admin with an invalid jwt' do
-      post api_v1_admins_path,
+    it 'does not create a new place with an invalid jwt' do
+      post api_v1_places_path,
            params: valid_attributes,
            headers: invalid_headers
 

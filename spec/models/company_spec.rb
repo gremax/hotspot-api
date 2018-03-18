@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
@@ -11,5 +13,7 @@ RSpec.describe Company, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:owner).class_name(Admin.name).dependent(:destroy) }
+    it { is_expected.to have_many(:places).dependent(:destroy) }
+    it { is_expected.to have_many(:routers) }
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Companies', type: :request do
@@ -10,6 +12,7 @@ RSpec.describe 'Companies', type: :request do
       'HTTP_AUTHORIZATION' => jwt_token
     }
   end
+
   let(:invalid_headers) do
     {
       'HTTP_REFERER' => 'http://hotspot.example.com',
@@ -22,7 +25,8 @@ RSpec.describe 'Companies', type: :request do
       data: {
         type: :companies,
         attributes: {
-          name: 'Planet Express'
+          name: 'Planet Express',
+          ownerId: admin.id
         }
       }
     }
@@ -33,7 +37,8 @@ RSpec.describe 'Companies', type: :request do
       data: {
         type: :companies,
         attributes: {
-          name: ''
+          name: '',
+          ownerId: ''
         }
       }
     }
@@ -81,6 +86,8 @@ RSpec.describe 'Companies', type: :request do
   end
 
   describe 'POST /companies' do
+    before { admin.add_role(:account_admin) }
+
     it 'creates a new company' do
       post api_v1_companies_path,
            params: valid_attributes,
@@ -118,7 +125,7 @@ RSpec.describe 'Companies', type: :request do
           attributes: {
             name: 'Planet Express'
           }
-        } 
+        }
       }
     end
 
@@ -130,7 +137,7 @@ RSpec.describe 'Companies', type: :request do
           attributes: {
             name: ''
           }
-        } 
+        }
       }
     end
 
@@ -178,6 +185,8 @@ RSpec.describe 'Companies', type: :request do
   end
 
   describe 'DELETE /companies/:id' do
+    before { admin.add_role(:account_admin) }
+
     it 'deletes a companies' do
       delete api_v1_company_path(company), params: {}, headers: valid_headers
 

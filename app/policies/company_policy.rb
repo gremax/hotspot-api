@@ -1,23 +1,29 @@
+# frozen_string_literal: true
+
 class CompanyPolicy < ApplicationPolicy
   def show?
-    owner?
+    owner? || company_admin? || account_admin?
   end
 
   def create?
-    owner?
+    account_admin?
   end
 
   def update?
-    owner?
+    owner? || company_admin? || account_admin?
   end
 
   def destroy?
-    owner?
+    account_admin?
   end
 
   class Scope < Scope
     def resolve
-      scope.where(owner: user)
+      if account_admin?
+        scope
+      else
+        scope.with_role(:company_admin, user)
+      end
     end
   end
 
