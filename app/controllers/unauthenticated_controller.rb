@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UnauthenticatedController < ActionController::Metal
   def self.call(env)
     @respond ||= action(:respond)

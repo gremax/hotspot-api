@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Exceptions
   class FormErrors < ::JSONAPI::Exceptions::Error
     attr_reader :object

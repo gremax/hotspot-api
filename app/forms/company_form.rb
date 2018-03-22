@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompanyForm < Reform::Form
   property :name
   property :owner_id
