@@ -8,6 +8,7 @@ ruby '2.5.0'
 gem 'apartment'
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'dry-transaction'
 gem 'dry-validation'
 gem 'jsonapi-utils', '~> 0.7.0'
 gem 'jwt'
