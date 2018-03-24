@@ -14,24 +14,27 @@ module Api
 
       def create
         company = authorize Company.new(resource_params)
-        form = CompanyForm.new(company)
+        CreateCompany.new.call(params: company) do |m|
+          m.success do |value|
+            jsonapi_render json: value, status: :created
+          end
 
-        if form.valid? && company.save
-          jsonapi_render json: company, status: :created
-        else
-          jsonapi_render_errors ::Exceptions::FormErrors.new(form), status: :unprocessable_entity
+          m.failure do |value|
+            jsonapi_render_errors ::Exceptions::FormErrors.new(value), status: :unprocessable_entity
+          end
         end
       end
 
       def update
         company = authorize Company.find(params[:id])
-        company.assign_attributes(resource_params)
-        form = CompanyForm.new(company)
+        UpdateCompany.new.call(id: company.id, params: resource_params) do |m|
+          m.success do |value|
+            jsonapi_render json: value
+          end
 
-        if form.valid? && company.update(resource_params)
-          jsonapi_render json: company
-        else
-          jsonapi_render_errors ::Exceptions::FormErrors.new(form), status: :unprocessable_entity
+          m.failure do |value|
+            jsonapi_render_errors ::Exceptions::FormErrors.new(value), status: :unprocessable_entity
+          end
         end
       end
 
