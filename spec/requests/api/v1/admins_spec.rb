@@ -114,5 +114,16 @@ RSpec.describe 'Admins', type: :request do
       expect(response).to have_http_status(401)
       expect(parsed_response).to be_eql('error' => 'Unauthorized Request')
     end
+
+    it 'does not create a new admin with existing email' do
+      valid_attributes[:data][:attributes][:email] = admin.email
+
+      post api_v1_admins_path,
+           params: valid_attributes,
+           headers: valid_headers
+
+      expect(response).to have_http_status(422)
+      expect(parsed_response['errors'].first['title']).to be_eql('has already been taken')
+    end
   end
 end
