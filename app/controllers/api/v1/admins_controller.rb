@@ -14,12 +14,14 @@ module Api
 
       def create
         admin = authorize Admin.new(resource_params)
-        form = AdminForm.new(admin)
+        CreateAdmin.new.call(params: admin) do |m|
+          m.success do |value|
+            jsonapi_render json: value, status: :created
+          end
 
-        if form.valid? && admin.save
-          jsonapi_render json: admin, status: :created
-        else
-          jsonapi_render_errors ::Exceptions::FormErrors.new(form), status: :unprocessable_entity
+          m.failure do |value|
+            jsonapi_render_errors ::Exceptions::FormErrors.new(value), status: :unprocessable_entity
+          end
         end
       end
 
