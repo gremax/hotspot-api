@@ -126,4 +126,80 @@ RSpec.describe 'Admins', type: :request do
       expect(parsed_response['errors'].first['title']).to be_eql('has already been taken')
     end
   end
+
+  describe 'PATCH /admins/:id' do
+    let(:valid_attributes) do
+      {
+        data: {
+          id: admin.id,
+          type: :admins,
+          attributes: {
+            firstName: 'Bender',
+            lastName: 'Rodriguez',
+            email: 'bender@planet.express',
+            password: 'password'
+          }
+        }
+      }
+    end
+
+    let(:invalid_attributes) do
+      {
+        data: {
+          id: admin.id,
+          type: :admins,
+          attributes: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: ''
+          }
+        }
+      }
+    end
+
+    it 'updates an admin' do
+      patch api_v1_admin_path(admin),
+            params: valid_attributes,
+            headers: valid_headers
+
+      expect(response).to have_http_status(200)
+
+      expect(admin.reload.first_name).to be_eql('Bender')
+      expect(admin.reload.last_name).to be_eql('Rodriguez')
+      expect(admin.reload.email).to be_eql('bender@planet.express')
+    end
+
+    it 'does not update an admin with invalid attributes' do
+      patch api_v1_admin_path(admin),
+            params: invalid_attributes,
+            headers: valid_headers
+
+      expect(response).to have_http_status(422)
+      expect(parsed_response['errors'].first['title']).to be_eql('must be filled')
+
+      expect(admin.reload.first_name).to be_eql(admin.first_name)
+    end
+
+    it 'does not update an admin with an invalid jwt' do
+      patch api_v1_admin_path(admin),
+            params: valid_attributes,
+            headers: invalid_headers
+
+      expect(response).to have_http_status(401)
+      expect(parsed_response).to be_eql('error' => 'Unauthorized Request')
+
+      expect(admin.reload.first_name).to be_eql(admin.first_name)
+    end
+
+    it 'does not update an admin with not existing id' do
+      params = { data: { id: 'fa879c0d-aa70-43a1-ad78-7ecee46a4881', type: :admins, attributes: { firstName: '' } } }
+      patch api_v1_admin_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'),
+            params: params,
+            headers: valid_headers
+
+      expect(response).to have_http_status(404)
+      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+    end
+  end
 end
