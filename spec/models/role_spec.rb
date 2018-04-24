@@ -16,5 +16,6 @@ RSpec.describe Role, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_inclusion_of(:resource_type).in_array(Rolify.resource_types) }
+    it { is_expected.to validate_inclusion_of(:name).in_array(Role::AVAILABLE_ROLES) }
   end
 end
