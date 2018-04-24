@@ -27,6 +27,9 @@ class UpdateAdmin
   def persist(form)
     form.save
     Success(form)
+  rescue ActiveRecord::RecordNotUnique
+    form.errors.add(:email, 'has already been taken')
+    Failure(form)
   end
 
   def display(form)
