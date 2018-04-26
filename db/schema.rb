@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_10_130509) do
+ActiveRecord::Schema.define(version: 2018_04_26_154105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 2018_03_10_130509) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
+  end
+
+  create_table "actions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "entity_uid"
+    t.string "entity_name"
+    t.text "post_text"
+    t.string "post_link"
+    t.string "post_image"
+    t.string "redirect_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
