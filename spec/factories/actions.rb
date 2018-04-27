@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :action do
+    current true
     name 'post'
     entity_uid '1234567890'
     entity_name 'My group name'
