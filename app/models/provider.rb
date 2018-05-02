@@ -2,5 +2,5 @@
 
 class Provider < ApplicationRecord
   belongs_to :company
-  has_one :action, dependent: :destroy
+  has_many :actions, dependent: :destroy
 end

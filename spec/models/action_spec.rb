@@ -12,5 +12,6 @@ RSpec.describe Action, type: :model do
     it { is_expected.to have_db_column(:redirect_url).of_type(:string) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:provider_id).of_type(:uuid) }
   end
 end

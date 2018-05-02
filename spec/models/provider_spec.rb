@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Provider, type: :model do
   describe 'db structure' do
     it { is_expected.to have_db_column(:company_id).of_type(:uuid) }
-    it { is_expected.to have_db_column(:action_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:api_key).of_type(:string) }
     it { is_expected.to have_db_column(:api_secret).of_type(:string) }
@@ -14,6 +13,6 @@ RSpec.describe Provider, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:company) }
-    it { is_expected.to have_one(:action).dependent(:destroy) }
+    it { is_expected.to have_many(:actions).dependent(:destroy) }
   end
 end

@@ -8,5 +8,6 @@ FactoryBot.define do
     post_link 'http://example.com'
     post_image ''
     redirect_url 'http://google.com'
+    provider
   end
 end
