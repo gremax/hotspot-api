@@ -13,5 +13,6 @@ RSpec.describe Company, type: :model do
     it { is_expected.to belong_to(:owner).class_name(Admin.name).dependent(:destroy) }
     it { is_expected.to have_many(:places).dependent(:destroy) }
     it { is_expected.to have_many(:routers) }
+    it { is_expected.to have_many(:providers).dependent(:destroy) }
   end
 end
