@@ -15,4 +15,19 @@ RSpec.describe Provider, type: :model do
     it { is_expected.to belong_to(:company) }
     it { is_expected.to have_many(:actions).dependent(:destroy) }
   end
+
+  describe '#current_action' do
+    let(:provider) { create(:provider) }
+    let(:actions) { create_list(:action, 3, provider: provider) }
+
+    before { actions.first.update(current: true) }
+
+    it 'should return just one active action' do
+      expect(provider.current_action).to be_eql actions.first
+    end
+
+    it 'should be current' do
+      expect(provider.current_action).to be_current
+    end
+  end
 end

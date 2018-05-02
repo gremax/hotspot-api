@@ -14,4 +14,8 @@ RSpec.describe Action, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:provider_id).of_type(:uuid) }
   end
+
+  describe 'associations' do
+    it { is_expected.to belong_to(:provider) }
+  end
 end
