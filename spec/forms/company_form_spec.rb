@@ -17,5 +17,11 @@ RSpec.describe CompanyForm, type: :form do
 
       expect(subject.errors[:owner_id]).to include('must be filled')
     end
+
+    it 'validates presence of an owner' do
+      subject.validate(owner_id: '1')
+
+      expect(subject.errors[:owner_id]).to include('must exist')
+    end
   end
 end

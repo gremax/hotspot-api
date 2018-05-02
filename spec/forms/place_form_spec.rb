@@ -17,5 +17,11 @@ RSpec.describe PlaceForm, type: :form do
 
       expect(subject.errors[:company_id]).to include('must be filled')
     end
+
+    it 'validates presence of a company' do
+      subject.validate(company_id: '1')
+
+      expect(subject.errors[:company_id]).to include('must exist')
+    end
   end
 end

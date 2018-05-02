@@ -5,7 +5,13 @@ class CompanyForm < Reform::Form
   property :owner_id
 
   validation do
+    configure do
+      def record?(klass, value)
+        klass.where(id: value).any?
+      end
+    end
+
     required(:name).filled
-    required(:owner_id).filled
+    required(:owner_id).filled(record?: Admin)
   end
 end
