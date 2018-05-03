@@ -1,3 +1,4 @@
 en:
   errors:
     record?: 'must exist'
+    eligible_name: 'must be one of:'
