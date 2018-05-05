@@ -21,9 +21,18 @@ company_admin = Admin.find_or_create_by(
   last_name: 'Rodriguez'
 )
 
-company = Company.find_or_create_by(owner: admin, name: 'Planet Express')
+place_admin = Admin.find_or_create_by(
+  email: 'fry@planet.express',
+  first_name: 'Philip J.',
+  last_name: 'Fry'
+)
+
+company = Company.find_or_create_by(owner_id: admin.id, name: 'Planet Express')
+place = Place.find_or_create_by(company_id: company.id, name: 'Warehouse')
 
 admin.update(password: 'password')
 admin.add_role(:account_admin)
 company_admin.update(password: 'password')
 company_admin.add_role(:company_admin, company)
+place_admin.update(password: 'password')
+place_admin.add_role(:place_admin, place)
