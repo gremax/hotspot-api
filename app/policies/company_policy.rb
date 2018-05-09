@@ -9,6 +9,10 @@ class CompanyPolicy < ApplicationPolicy
     account_admin?
   end
 
+  def edit?
+    owner? || company_admin? || account_admin?
+  end
+
   def update?
     owner? || company_admin? || account_admin?
   end
