@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       jsonapi_resources :places, only: %i[index show create update destroy]
       jsonapi_resources :routers, only: %i[index show create update destroy]
       jsonapi_resources :admins, only: %i[index show create update destroy]
+      jsonapi_resources :settings, only: %i[edit update]
     end
   end
 end
