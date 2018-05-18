@@ -6,9 +6,7 @@ class CompanyForm < Reform::Form
 
   validation do
     configure do
-      def record?(klass, value)
-        klass.where(id: value).any?
-      end
+      predicates(ValidationPredicates)
     end
 
     required(:name).filled

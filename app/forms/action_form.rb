@@ -14,10 +14,7 @@ class ActionForm < Reform::Form
   validation do
     configure do
       option :provider, Provider
-
-      def record?(klass, value)
-        klass.where(id: value).any?
-      end
+      predicates(ValidationPredicates)
     end
 
     required(:provider_id).filled(record?: Provider)
