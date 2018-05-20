@@ -8,7 +8,11 @@ class ProviderForm < Reform::Form
   property :api_public
 
   validation do
-    required(:company_id).filled
+    configure do
+      predicates(ValidationPredicates)
+    end
+
+    required(:company_id).filled(record?: Company)
     required(:name).filled(included_in?: Provider::AVAILABLE_NAMES)
   end
 end

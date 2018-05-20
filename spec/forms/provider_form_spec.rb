@@ -27,9 +27,17 @@ RSpec.describe ProviderForm, type: :form do
     end
   end
 
-  it 'validates presence of a company_id attribute' do
-    subject.validate(company_id: '')
+  describe '#company_id' do
+    it 'validates presence of a company_id attribute' do
+      subject.validate(company_id: '')
 
-    expect(subject.errors[:company_id]).to include('must be filled')
+      expect(subject.errors[:company_id]).to include('must be filled')
+    end
+
+    it 'validates presence of a company' do
+      subject.validate(company_id: '1')
+
+      expect(subject.errors[:company_id]).to include('must exist')
+    end
   end
 end
