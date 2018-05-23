@@ -4,5 +4,7 @@ RSpec.describe Api::V1::SettingResource, type: :resource do
 
   subject { described_class.new(presenter, {}) }
 
-  it { is_expected.to have_many(:providers) }
+  it { is_expected.to have_attribute(:available_providers) }
+  it { is_expected.to have_attribute(:eligible_actions) }
+  it { is_expected.to have_attribute(:providers) }
 end

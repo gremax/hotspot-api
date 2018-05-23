@@ -3,7 +3,7 @@
 module Api
   module V1
     class SettingResource < JSONAPI::Resource
-      has_many :providers
+      attributes :available_providers, :eligible_actions, :providers
     end
   end
 end

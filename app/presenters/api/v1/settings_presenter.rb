@@ -14,6 +14,14 @@ module Api
       def providers
         company.current_providers
       end
+
+      def available_providers
+        Provider::AVAILABLE_NAMES
+      end
+
+      def eligible_actions
+        Provider::ELIGIBLE_ACTIONS
+      end
     end
   end
 end
