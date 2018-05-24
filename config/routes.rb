@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :auth do
+        get :me, to: 'tokens#show'
         resources :sessions, only: %i[create]
       end
       jsonapi_resources :companies, only: %i[index show create update destroy]
