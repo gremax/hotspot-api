@@ -78,10 +78,12 @@ RSpec.describe 'Admins', type: :request do
     end
 
     it 'does not get a single admin with not existing id' do
-      get api_v1_admin_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), headers: valid_headers
+      get api_v1_admin_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'),
+          headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Admin with 'id'=fa879c0d-aa70-43a1-ad78-7ecee46a4881")
     end
   end
 
@@ -123,7 +125,8 @@ RSpec.describe 'Admins', type: :request do
            headers: valid_headers
 
       expect(response).to have_http_status(422)
-      expect(parsed_response['errors'].first['title']).to be_eql('has already been taken')
+      expect(parsed_response['errors'].first['title'])
+        .to be_eql('has already been taken')
     end
   end
 
@@ -194,12 +197,13 @@ RSpec.describe 'Admins', type: :request do
 
     it 'does not update an admin with not existing id' do
       params = { data: { id: 'fa879c0d-aa70-43a1-ad78-7ecee46a4881', type: :admins, attributes: { firstName: '' } } }
-      patch api_v1_admin_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'),
+      patch api_v1_admin_path(params[:data][:id]),
             params: params,
             headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Admin with 'id'=#{params[:data][:id]}")
     end
   end
 end

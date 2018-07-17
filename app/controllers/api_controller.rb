@@ -8,4 +8,8 @@ class ApiController < ApplicationController
   def missing_param_error(exception)
     render json: { error: exception.message }, status: :unprocessable_entity
   end
+
+  def jsonapi_render_not_found(exception)
+    render json: { error: exception.message }, status: :not_found
+  end
 end
