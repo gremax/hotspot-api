@@ -4,23 +4,24 @@ module Api
   module V1
     class PlacesController < BaseController
       def index
-        jsonapi_render json: policy_scope(Place).all
+        places = policy_scope(Place).all
+        render json: PlaceSerializer.new(places).serialized_json
       end
 
       def show
         place = authorize Place.find(params[:id])
-        jsonapi_render json: place
+        render json: PlaceSerializer.new(place).serialized_json
       end
 
       def create
         place = authorize Place.new(resource_params)
         CreatePlace.new.call(params: place) do |m|
           m.success do |value|
-            jsonapi_render json: value, status: :created
+            render json: PlaceSerializer.new(value).serialized_json, status: :created
           end
 
           m.failure do |value|
-            jsonapi_render_errors ::Exceptions::FormErrors.new(value), status: :unprocessable_entity
+            render json: ErrorSerializer.new(value).serialized_json, status: :unprocessable_entity
           end
         end
       end
@@ -28,6 +29,20 @@ module Api
       def update; end
 
       def destroy; end
+
+      private
+
+      def resource_params
+        params
+          .require(:data)
+          .require(:attributes)
+          .permit(
+            :name,
+            :active,
+            :name,
+            :companyId
+          ).transform_keys(&:underscore)
+      end
     end
   end
 end
