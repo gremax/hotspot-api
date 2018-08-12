@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class AdminResource < JSONAPI::Resource
+    class AdminSerializer < BaseSerializer
       attributes :active, :email, :first_name, :last_name, :password
     end
   end

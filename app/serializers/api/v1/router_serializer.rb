@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class RouterResource < JSONAPI::Resource
+    class RouterSerializer < BaseSerializer
       attributes :name, :username, :place_id, :status, :last_pinged_at,
                  :created_at, :updated_at
 

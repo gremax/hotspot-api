@@ -79,7 +79,8 @@ RSpec.describe 'Places', type: :request do
       get api_v1_place_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Place with 'id'=fa879c0d-aa70-43a1-ad78-7ecee46a4881")
     end
   end
 

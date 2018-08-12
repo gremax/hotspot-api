@@ -79,7 +79,8 @@ RSpec.describe 'Companies', type: :request do
       get api_v1_company_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Company with 'id'=fa879c0d-aa70-43a1-ad78-7ecee46a4881")
     end
   end
 
@@ -173,12 +174,13 @@ RSpec.describe 'Companies', type: :request do
 
     it 'does not update a company with not existing id' do
       params = { data: { id: 'fa879c0d-aa70-43a1-ad78-7ecee46a4881', type: :companies, attributes: { name: '' } } }
-      patch api_v1_company_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'),
+      patch api_v1_company_path(params[:data][:id]),
             params: params,
             headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Company with 'id'=#{params[:data][:id]}")
     end
   end
 
@@ -205,7 +207,8 @@ RSpec.describe 'Companies', type: :request do
       delete api_v1_company_path('fa879c0d-aa70-43a1-ad78-7ecee46a4881'), params: {}, headers: valid_headers
 
       expect(response).to have_http_status(404)
-      expect(parsed_response['errors'].first['title']).to be_eql('Record not found')
+      expect(parsed_response['error'])
+        .to be_eql("Couldn't find Company with 'id'=fa879c0d-aa70-43a1-ad78-7ecee46a4881")
     end
   end
 end

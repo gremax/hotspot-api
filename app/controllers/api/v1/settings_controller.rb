@@ -6,7 +6,7 @@ module Api
       def edit
         company = authorize Company.find(params[:id])
         settings = SettingsPresenter.new(company, current_user)
-        jsonapi_render json: settings
+        render json: SettingsSerializer.new(settings).serialized_json
       end
     end
   end
