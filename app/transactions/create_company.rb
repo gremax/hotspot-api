@@ -5,6 +5,7 @@ class CreateCompany
 
   step :validate
   step :persist
+  step :update_roles
   step :display
 
   def validate(input)
@@ -19,6 +20,12 @@ class CreateCompany
 
   def persist(form)
     form.save
+    Success(form)
+  end
+
+  def update_roles(form)
+    owner = form.model.owner
+    owner.add_role(:company_admin, form.model)
     Success(form)
   end
 
